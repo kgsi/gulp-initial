@@ -8,8 +8,8 @@ $color-black:           #000 !default;
 $color-white:           #000 !default;
 
 // font
-$font-family-sans-serif:  font-family: YuMincho, '游明朝', "ヒラギノ角ゴ Pro W3", "Lucida Grande", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Verdana, "ＭＳ Ｐゴシック", sans-serif !default;
-$font-family-serif:       font-family: "Times New Roman", "游明朝", YuMincho, "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN", Meiryo, serif !default;
+$font-family-sans-serif:  "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro W3", "Lucida Grande", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Verdana, "ＭＳ Ｐゴシック", sans-serif !default;
+$font-family-serif:       "ヒラギノ明朝 ProN W6", "HiraMinProN-W6", "HG明朝E", "ＭＳ Ｐ明朝", "MS PMincho", "MS 明朝", serif !default;
 $font-family-base:        $font-family-sans-serif !default;
 // font size
 $font-size-base:          13px !default;
