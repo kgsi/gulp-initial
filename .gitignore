@@ -13,7 +13,7 @@ config.codekit
 *.rbc
 .bundle
 .config
-
+bower_components
 node_modules
 release
 .sass-cache
