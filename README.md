@@ -69,7 +69,14 @@ grid systemを使うために必要な以下のモジュールを、任意のsas
     @import 'bootstrap-sass/assets/stylesheets/bootstrap/scaffolding';
     @import 'bootstrap-sass/assets/stylesheets/bootstrap/responsive-utilities';
 
-* ディレクトリ指定は格納先に合わせて変更する
+* ディレクトリ指定は格納先に合わせ、適時変更
+
+### 空フォルダに.gitkeepを配置するコマンドラインツール
+git-empry-dir.pyファイルを使って下記コマンドを実行する。実行すると空ディレクトリに.gitkeepファイルが配置される。
+
+    git-empry-dir.py keep
+
+詳しくは[空のディレクトリに.gitkeepを配置するコマンドラインツール](http://qiita.com/suin/items/2814e91ed9c29c0f9287)を参照してください。
 
 ## Author
 
