@@ -1,0 +1,23 @@
+{
+  "name": "gulp-initial",
+  "version": "1.0.0",
+  "homepage": "https://github.com/kgsi/gulp-initial",
+  "authors": [
+    "kgsi"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "modernizr": "~2.8.3",
+    "jQuery": "~2.1.4",
+    "bootstrap-sass": "~3.3.4",
+    "velocity": "~1.2.2"
+  }
+}
