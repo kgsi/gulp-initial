@@ -8,11 +8,12 @@ var rename = require('gulp-rename');
 var concat = require('gulp-concat');
 var ejs = require("gulp-ejs");
 var critical = require('critical');
-
+var styleguide = require('gulp-styledocco');
 
 // browserSync
 gulp.task("browser", function() {
 	browser({
+		// phpを使わない場合は以下をコメントアウト
 		// server: {
 		// 	baseDir: "./app/"
 		// },
@@ -22,14 +23,8 @@ gulp.task("browser", function() {
 
 //reload
 gulp.task('reload', function () {
-    browser.reload();
+	browser.reload();
 });
-
-// html
-// gulp.task('html', function() {
-// 	gulp.src('./app/**/*.html')
-// 		.pipe(browserSync.reload({stream: true}));
-// });
 
 // sass(compass)
 gulp.task('compass', function () {
@@ -72,20 +67,42 @@ gulp.task('ejs', function() {
 // Critical-path CSS
 gulp.task('critical', function () {
 	critical.generate({
-        base: './app/',
-        src: 'index.html',
-        dest: 'assets/css/critical.css',
+		base: './app/',
+		src: 'index.html',
+		dest: 'assets/css/critical.css',
 		minify: true,
-		width: 1300,
-		height: 900
-    });
+		width: 1000,
+		height: 768
+	});
 });
+
+// Critical-path CSS(inline)
+// gulp.task('critical', function () {
+//   critical.generateInline({
+// 		base: './app/',
+// 		src: 'index.html',
+// 		dest: 'assets/css/critical.css',
+// 		minify: true,
+//		width: 1000,
+//		height: 768
+// 	});
+// });
+
+// styleguide
+gulp.task('styleguide', function () {
+	gulp.src('./app/assets/css/*.css')
+		.pipe(styleguide({
+			out: 'docs',
+			name: 'styleguide'
+	}));
+});
+
 
 // watch
 gulp.task('watch', function() {
 	gulp.watch('./app/**/*.html',['reload']);
 	gulp.watch('./src/sass/**/*.scss', ['compass'])
-    gulp.watch('./src/js/libs/*.js', ['js']);
+	gulp.watch('./src/js/libs/*.js', ['js']);
 
 	gulp.watch("./src/ejs/**/*.ejs",['ejs']);
 });
