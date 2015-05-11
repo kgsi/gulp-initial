@@ -1,0 +1,30 @@
+### OSX ###
+.DS_Store
+config.codekit
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Trashes
+
+### Ruby ###
+*.gem
+*.rbc
+.bundle
+.config
+
+node_modules
+release
+.sass-cache
+
+# YARD artifacts
+.yardoc
+_yardoc
+
+# file
+doc/
+
+# movie
+*.mp4
+*.webm
