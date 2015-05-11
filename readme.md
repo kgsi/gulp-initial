@@ -1,4 +1,7 @@
-# gulp_initial_project
+# gulp-initial
+
+##About
+
 
 ## Spec
 
@@ -13,8 +16,19 @@
 ※ xxx
 
 ## Usage
+1.npm,RubyGem,sass,compassのアップデート
+
+    $ sudo npm update
+    $ sudo gem update --system 
+    $ sudo gem update sass
+    $ sudo gem update compass
+
+2.gulpのグローバルインストール
 
     $ npm install --global gulp
+
+3.gulpの初期化
+
     $ cd (project folder)
     $ npm install
     $ gulp
