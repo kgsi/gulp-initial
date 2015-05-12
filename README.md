@@ -1,22 +1,44 @@
 # gulp-initial
 
 ##About
-gulp-initial は、gulpの使用を前提とした、フロントエンドテンプレートプロジェクトです。プロジェクトをダウンロードしてすぐに設定、構築が可能にできることを目的としています。
+gulp-initial は、gulpの使用を前提としたWEBアプリ・サイト向けテンプレートプロジェクトです。プロジェクトをダウンロードしてすぐに設定・構築が可能にできることを目的としています。
+
+##Directory
+
+    src
+      └─ ejs
+        ├─ ***.ejs（各ページのテンプレート）
+        └─ _partial
+              └─ _***.ejs（各ページの共通パーツ設置）
+      └─ js
+        └─ libs
+              └─ ライブラリ設置場所（Concat後にappフォルダにdistされる）
+      └─ sass
+    node_modules
+      └─ パッケージ
+    app
+      └─ distディレクトリ
+    package.json
+    config.rb
+    gulpfile.js
+    bower.json
 
 ## Spec
 
-* BrowserSync
-* ejs (Template Engine)
-* Sass(Compass)
-* CSS Autoprefixer
-* JavaScript Concat&Uglify
-* Imagefile Minify
-* SVG Sprites
-* gulp-styledocco
+ * Sass(compass)
+ * EJS(template)
+ * JS,CSS Minify & Concat
+ * Image Minify
+ * BrowserSync
+ * Crtitical CSS
+ * Styledocco(style guide)
 
 ## Usage
+このリポジトリはgulpによるビルドを前提に作成しています。
+以下はgulpの初期設定から実行方法までを説明します。
 
-### npm,RubyGem,sass,compassのアップデート
+### npm,gem,sass,compassのアップデート
+※各ツールのインストールが済んでいる前提です。
 
     $ sudo npm update
     $ sudo gem update --system 
@@ -31,58 +53,63 @@ gulp-initial は、gulpの使用を前提とした、フロントエンドテン
 
     $ sudo npm install -g bower
     $ sudo npm update -g bower
+    $ bower install
 
-### gulpの初期設定
+####bower登録済みライブラリ
+ * jQuery
+ * modernizr.js
+ * bootstrap-sass
+ * velocity.js
+ * Underscore.js
+
+### 初期設定
+設定したい任意のディレクトリに移動後、下記コマンドを実行してください。package.jsonに登録されているツール・ライブラリがダウンロードされます。
 
     $ sudo npm install
-    $ gulp
-
-* 注釈挿入予定
 
 ### gulpのコマンド
 
+#### SASS/JS/EJSのコンパイル、およびHTML/CSS/JS/EJSの監視
+
     $ gulp
 
-Sass/jsのコンパイルおよびHTML/CSS/JSの監視
+#### critical cssの出力
 
     $ gulp critical
 
-critical cssの出力
+#### styleguide css（styledocco）の出力
 
     $ gulp styleguide
 
-styleguide css（styledocco）の出力
+#### css,js,imageの圧縮
+
+    $ gulp min
 
 ## Option
 
-### bootstrap3のGrid Systemのみ使う
-レスポンシブサイトを作る際、フレームワークを使って組む場合があります。
-その際、BootstrapのGrid Systemのみ使いたい場合があるため、オプションとして記載。
-
-#####必要なモジュールをimport
-grid systemを使うために必要な以下のモジュールを、任意のsassファイルに記述する。
-
-    @import 'bootstrap-sass/assets/stylesheets/bootstrap-sprockets';
-    @import 'bootstrap-sass/assets/stylesheets/bootstrap/variables';
-    @import 'bootstrap-sass/assets/stylesheets/bootstrap/mixins";
-    @import 'bootstrap-sass/assets/stylesheets/bootstrap/grid';
-    @import 'bootstrap-sass/assets/stylesheets/bootstrap/scaffolding';
-    @import 'bootstrap-sass/assets/stylesheets/bootstrap/responsive-utilities';
-
-* ディレクトリ指定は格納先に合わせ、適時変更
-
 ### 空フォルダに.gitkeepを配置するコマンドラインツール
-git-empry-dir.pyファイルを使って下記コマンドを実行する。実行すると空ディレクトリに.gitkeepファイルが配置される。
+git-empry-dir.pyファイルを使って下記コマンドを実行してください。実行すると空ディレクトリに.gitkeepファイルが配置されます。
 
     git-empry-dir.py keep
 
-詳しくは[空のディレクトリに.gitkeepを配置するコマンドラインツール](http://qiita.com/suin/items/2814e91ed9c29c0f9287)を参照してください。
+詳しくは[空のディレクトリに.gitkeepを配置するコマンドラインツール](http://qiita.com/suin/items/2814e91ed9c29c0f9287)を参照
+
+### PHPを使う場合
+gulpfile.jsの項目browserSyncを参照。proxyを有効にし、appディレクトリをMAMPなどを使って有効化します。MAMPとBrowserSyncの紐付けが行われます。
 
 ## Author
 
 ### kgsi
 
+* [Portfolio](http://aircolor.org)
+* [twitter](https://twitter.com/kgsi)
+* [Facebook](https://www.facebook.com/shinichi.kogiso)
+
 ## Log
+
+### 2015.05.12
+
+* bowerにunderscore.jsの追加
 
 ### 2015.05.11
 
