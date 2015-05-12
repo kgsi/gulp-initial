@@ -12,7 +12,7 @@ gulp-initial は、gulpの使用を前提としたWEBアプリ・サイト向け
               └─ _***.ejs（各ページの共通パーツ設置）
       └─ js
         └─ libs
-              └─ ライブラリ設置場所（Concat後にappフォルダにdistされる）
+              └─ ライブラリ設置（Concat後にappフォルダにdistされる）
       └─ sass
     node_modules
       └─ パッケージ
@@ -31,7 +31,7 @@ gulp-initial は、gulpの使用を前提としたWEBアプリ・サイト向け
  * Image Minify
  * BrowserSync
  * Crtitical CSS
- * Styledocco(style guide)
+ * Style guide(Styledocco)
 
 ## Usage
 このリポジトリはgulpによるビルドを前提に作成しています。
@@ -81,7 +81,9 @@ gulp-initial は、gulpの使用を前提としたWEBアプリ・サイト向け
 
     $ gulp styleguide
 
-#### css,js,imageの圧縮
+※app/styleguide/へ出力される
+
+#### SASS/JS/IMAGEの圧縮
 
     $ gulp min
 
@@ -95,13 +97,13 @@ git-empry-dir.pyファイルを使って下記コマンドを実行してくだ�
 詳しくは[空のディレクトリに.gitkeepを配置するコマンドラインツール](http://qiita.com/suin/items/2814e91ed9c29c0f9287)を参照
 
 ### PHPを使う場合
-gulpfile.jsの項目browserSyncを参照。proxyを有効にし、appディレクトリをMAMPなどを使って有効化します。MAMPとBrowserSyncの紐付けが行われます。
+gulpfile.jsのbrowserSync項目を参照。proxyを有効にし、appディレクトリをMAMPなどを使って有効化します。MAMPとBrowserSyncの紐付けが行われます。
 
 ## Author
 
 ### kgsi
 
-* [Portfolio](http://aircolor.org)
+* [Personal site](http://aircolor.org)
 * [twitter](https://twitter.com/kgsi)
 * [Facebook](https://www.facebook.com/shinichi.kogiso)
 
