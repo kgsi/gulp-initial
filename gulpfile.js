@@ -46,14 +46,11 @@ gulp.task('compass', function () {
 		.pipe(browser.reload({stream:true}))
 });
 
-// js(libs)
-gulp.task('js', function() {
+// js library (concat & uglify)
+gulp.task('libsmin', function() {
 	gulp.src('./src/js/libs/*.js')
 		.pipe(concat('libs.js'))
 		.pipe(uglify())
-		// .pipe(rename({
-		//     suffix: '.min'
-		// }))
 		.pipe(gulp.dest('./app/assets/js/'))
 		.pipe(browser.reload({stream: true}));
 });
@@ -64,9 +61,6 @@ gulp.task("ejs", function() {
 		["./src/ejs/**/*.ejs",'!' + "./src/ejs/**/_*.ejs"]
 	)
 	.pipe(ejs())
-	.pipe(ejs({
-		msg: "Hello Gulp!"
-	}))
 	.pipe(gulp.dest("./app"));
 });
 
@@ -116,11 +110,11 @@ gulp.task('cssmin', function () {
 		.pipe(gulp.dest('./app/assets/css/'));
 });
 
-// styleguide
+// style guide
 gulp.task('styleguide', function () {
 	gulp.src('./app/assets/css/*.css')
 		.pipe(styleguide({
-			out: 'docs',
+			out: './app/styleguide',
 			name: 'styleguide'
 	}));
 });
@@ -129,9 +123,14 @@ gulp.task('styleguide', function () {
 gulp.task('watch', function() {
 	gulp.watch('./app/**/*.html',['reload']);
 	gulp.watch('./src/sass/**/*.scss', ['compass','reload'])
-	gulp.watch('./src/js/libs/*.js', ['js']);
 	gulp.watch("./src/ejs/**/*.ejs",['ejs']);
+
+	var libsmin = gulp.watch('./src/js/libs/*.js', ['libsmin']);
+	libsmin.on('add change', function(event) {
+    	console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
+	});
 });
 
+// gulp task
 gulp.task("default",['browser','watch']);
 gulp.task("min",['cssmin','imagemin']);
