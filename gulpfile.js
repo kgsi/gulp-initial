@@ -3,9 +3,12 @@ var browser = require('browser-sync');
 var plumber = require('gulp-plumber');
 var notify = require('gulp-notify');
 var compass = require('gulp-compass');
-var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
+var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
+var cssmin = require('gulp-cssmin');
+var imagemin = require('gulp-imagemin');
+var pngquant = require('imagemin-pngquant');
 var ejs = require("gulp-ejs");
 var critical = require('critical');
 var styleguide = require('gulp-styledocco');
@@ -13,11 +16,13 @@ var styleguide = require('gulp-styledocco');
 // browserSync
 gulp.task("browser", function() {
 	browser({
-		// phpを使わない場合は以下をコメントアウト
-		// server: {
-		// 	baseDir: "./app/"
-		// },
-		proxy: 'localhost:8888'
+		// phpを使わない場合は下記を有効にする
+		server: {
+			baseDir: "./app/"
+		}
+		// phpを使う場合は、下記を有効にして、appディレクトリを
+		// MAMPを使うなどしてサーバ化する
+		// proxy: 'localhost:8888'
 	});
 });
 
@@ -28,20 +33,20 @@ gulp.task('reload', function () {
 
 // sass(compass)
 gulp.task('compass', function () {
-  return gulp.src('./src/sass/**/*.scss')
-	.pipe(plumber({errorHandler: notify.onError('<%= error.message %>')}))
-	.pipe(compass({ 
-			config_file : './config.rb',
-			comments : false,
-			css : './app/assets/css/',
-			sass: './src/sass/',
-			image: './app/assets/images/'
-	}))
-	.pipe(gulp.dest('./app/assets/temp'))
-	.pipe(browser.reload({stream:true}))
+	return gulp.src('./src/sass/**/*.scss')
+		.pipe(plumber({errorHandler: notify.onError('<%= error.message %>')}))
+		.pipe(compass({ 
+				config_file : './config.rb',
+				comments : false,
+				css : './app/assets/css/',
+				sass: './src/sass/',
+				image: './app/assets/images/'
+		}))
+		//.pipe(gulp.dest('./app/assets/temp'))
+		.pipe(browser.reload({stream:true}))
 });
 
-// js(lib)
+// js(libs)
 gulp.task('js', function() {
 	gulp.src('./src/js/libs/*.js')
 		.pipe(concat('libs.js'))
@@ -54,17 +59,18 @@ gulp.task('js', function() {
 });
 
 // ejs
-gulp.task('ejs', function() {
-	gulp.src('./src/ejs/**/*.ejs')
-	.pipe(plumber({errorHandler: notify.onError('<%= error.message %>')}))
+gulp.task("ejs", function() {
+	gulp.src(
+		["./src/ejs/**/*.ejs",'!' + "./src/ejs/**/_*.ejs"]
+	)
+	.pipe(ejs())
 	.pipe(ejs({
-		msg: 'Hello Gulp!'
+		msg: "Hello Gulp!"
 	}))
-	.pipe(gulp.dest('./app/'))
-	.pipe(browser.reload({stream:true}))
+	.pipe(gulp.dest("./app"));
 });
 
-// Critical-path CSS
+// critical-path css
 gulp.task('critical', function () {
 	critical.generate({
 		base: './app/',
@@ -76,7 +82,7 @@ gulp.task('critical', function () {
 	});
 });
 
-// Critical-path CSS(inline)
+// critical-path css(inline)
 // gulp.task('critical', function () {
 //   critical.generateInline({
 // 		base: './app/',
@@ -88,6 +94,28 @@ gulp.task('critical', function () {
 // 	});
 // });
 
+// image min
+gulp.task('imagemin', function () {
+  return gulp.src('./app/assets/images/**/*')
+	.pipe(imagemin({
+		progressive: true,
+		svgoPlugins: [{removeViewBox: false}],
+		use: [pngquant({
+			quality: '60-80',
+			speed: 1
+		})]
+	}))
+	.pipe(gulp.dest('./app/assets/images/'));
+});
+
+// css min
+gulp.task('cssmin', function () {
+	gulp.src('./app/assets/css/**/*')
+		.pipe(cssmin())
+		.pipe(rename({suffix: '.min'}))
+		.pipe(gulp.dest('./app/assets/css/'));
+});
+
 // styleguide
 gulp.task('styleguide', function () {
 	gulp.src('./app/assets/css/*.css')
@@ -97,15 +125,13 @@ gulp.task('styleguide', function () {
 	}));
 });
 
-
 // watch
 gulp.task('watch', function() {
 	gulp.watch('./app/**/*.html',['reload']);
-	gulp.watch('./src/sass/**/*.scss', ['compass'])
+	gulp.watch('./src/sass/**/*.scss', ['compass','reload'])
 	gulp.watch('./src/js/libs/*.js', ['js']);
-
 	gulp.watch("./src/ejs/**/*.ejs",['ejs']);
 });
 
-// gulp task
 gulp.task("default",['browser','watch']);
+gulp.task("min",['cssmin','imagemin']);
