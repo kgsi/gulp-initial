@@ -25,8 +25,8 @@ gulp-initial は、gulpの使用を前提としたWEBアプリ・サイト向け
 
 ## Spec
 
- * Sass(compass)
- * EJS(template)
+ * SASS(Compass)
+ * EJS
  * JS,CSS Minify & Concat
  * Image Minify
  * BrowserSync
