@@ -9,10 +9,10 @@ gulp-initial は、gulpの使用を前提としたWEBアプリ・サイト向け
       └─ ejs
         ├─ ***.ejs（各ページのテンプレート）
         └─ _partial
-              └─ _***.ejs（各ページの共通パーツ設置）
+              └─ _***.ejs（各ページの共通パーツ）
       └─ js
         └─ libs
-              └─ ライブラリ設置（Concat後にappフォルダにdistされる）
+              └─ ライブラリ（concat後、/app/assets/js/ディレクトリにdistされる）
       └─ sass
     node_modules
       └─ パッケージ
@@ -28,6 +28,7 @@ gulp-initial は、gulpの使用を前提としたWEBアプリ・サイト向け
  * SASS(Compass)
  * EJS
  * JS,CSS Minify & Concat
+ * Autoprefix(pleeease)
  * Image Minify
  * BrowserSync
  * Crtitical CSS
