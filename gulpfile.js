@@ -7,6 +7,7 @@ var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var cssmin = require('gulp-cssmin');
+var pleeease = require('gulp-pleeease');
 var imagemin = require('gulp-imagemin');
 var pngquant = require('imagemin-pngquant');
 var ejs = require("gulp-ejs");
@@ -41,6 +42,14 @@ gulp.task('compass', function () {
 				css : './app/assets/css/',
 				sass: './src/sass/',
 				image: './app/assets/images/'
+		}))
+		.pipe(pleeease({
+			fallbacks: {
+				autoprefixer: ['last 4 versions'] //ベンダープレフィックス
+		    },
+		    optimizers: {
+				minifier: false //圧縮の有無
+		    }
 		}))
 		//.pipe(gulp.dest('./app/assets/temp'))
 		.pipe(browser.reload({stream:true}))
@@ -90,7 +99,7 @@ gulp.task('critical', function () {
 
 // image min
 gulp.task('imagemin', function () {
-  return gulp.src('./app/assets/images/**/*')
+	gulp.src('./app/assets/images/**/*')
 	.pipe(imagemin({
 		progressive: true,
 		svgoPlugins: [{removeViewBox: false}],
@@ -131,6 +140,8 @@ gulp.task('watch', function() {
 	});
 });
 
-// gulp task
+// default
 gulp.task("default",['browser','watch']);
+
+// minify
 gulp.task("min",['cssmin','imagemin']);
