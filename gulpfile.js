@@ -64,6 +64,13 @@ gulp.task('libsmin', function() {
 		.pipe(browser.reload({stream: true}));
 });
 
+// js
+gulp.task('js', function() {
+	gulp.src('./src/js/*.js')
+		.pipe(gulp.dest('./app/assets/js/'))
+		.pipe(browser.reload({stream: true}));
+});
+
 // ejs
 gulp.task("ejs", function() {
 	gulp.src(
@@ -73,29 +80,18 @@ gulp.task("ejs", function() {
 	.pipe(gulp.dest("./app"));
 });
 
-// critical-path css
+// critical-path css(inline)
 gulp.task('critical', function () {
-	critical.generate({
+  critical.generateInline({
 		base: './app/',
 		src: 'index.html',
-		dest: 'assets/css/critical.css',
+		//dest: 'assets/css/critical.css',
+		htmlTarget: 'index.html',
 		minify: true,
 		width: 1000,
 		height: 768
 	});
 });
-
-// critical-path css(inline)
-// gulp.task('critical', function () {
-//   critical.generateInline({
-// 		base: './app/',
-// 		src: 'index.html',
-// 		dest: 'assets/css/critical.css',
-// 		minify: true,
-//		width: 1000,
-//		height: 768
-// 	});
-// });
 
 // image min
 gulp.task('imagemin', function () {
@@ -119,7 +115,15 @@ gulp.task('cssmin', function () {
 		.pipe(gulp.dest('./app/assets/css/'));
 });
 
-// style guide
+// js min
+gulp.task('jsmin', function() {
+	gulp.src('./src/js/*.js')
+		.pipe(uglify())
+		.pipe(gulp.dest('./app/assets/js/'))
+		.pipe(browser.reload({stream: true}));
+});
+
+// styleGuide
 gulp.task('styleguide', function () {
 	gulp.src('./app/assets/css/*.css')
 		.pipe(styleguide({
@@ -132,7 +136,8 @@ gulp.task('styleguide', function () {
 gulp.task('watch', function() {
 	gulp.watch('./app/**/*.html',['reload']);
 	gulp.watch('./src/sass/**/*.scss', ['compass','reload'])
-	gulp.watch("./src/ejs/**/*.ejs",['ejs']);
+	gulp.watch("./src/ejs/**/*.ejs",['ejs','reload']);
+	gulp.watch("./src/js/*.js",['js']);
 
 	var libsmin = gulp.watch('./src/js/libs/*.js', ['libsmin']);
 	libsmin.on('add change', function(event) {
@@ -144,4 +149,4 @@ gulp.task('watch', function() {
 gulp.task("default",['browser','watch']);
 
 // minify
-gulp.task("min",['cssmin','imagemin']);
+gulp.task("min",['cssmin','imagemin','jsmin']);
