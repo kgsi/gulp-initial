@@ -140,7 +140,7 @@ gulp.task('watch', function() {
 	gulp.watch("./src/js/*.js",['js']);
 
 	var libsmin = gulp.watch('./src/js/libs/*.js', ['libsmin']);
-	libsmin.on('add change', function(event) {
+	libsmin.on('change', function(event) {
     	console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
 	});
 });

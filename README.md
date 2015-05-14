@@ -89,6 +89,10 @@ gulp-initial は、gulpの使用を前提としたWEBアプリ・サイト向け
 
     $ gulp min
 
+#### タスク終了
+
+    ^（Ctrl）+C
+
 ## Option
 
 ### 空フォルダに.gitkeepを配置するコマンドラインツール
