@@ -53,6 +53,7 @@ gulp-initial は、gulpの使用を前提としたWEBアプリ・サイト向け
 
     $ sudo npm install -g bower
     $ sudo npm update -g bower
+    $ cd ** //リポジトリ設置ディレクトリに移動
     $ bower install
 
 ####bower登録済みライブラリ
@@ -63,8 +64,9 @@ gulp-initial は、gulpの使用を前提としたWEBアプリ・サイト向け
  * Underscore.js
 
 ####初期設定
-設定したい任意のディレクトリに移動後、下記コマンドを実行してください。package.jsonに登録されているツール・ライブラリがダウンロードされます。
+設定したい任意のディレクトリに移動後、下記コマンドを実行。package.jsonに登録されているツール・ライブラリがダウンロードされます。
 
+    $ cd ** //リポジトリ設置ディレクトリに移動
     $ sudo npm install
 
 ### gulpのコマンド
