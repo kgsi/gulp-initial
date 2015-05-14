@@ -15,7 +15,6 @@ gulp-initial は、gulpの使用を前提としたWEBアプリ・サイト向け
               └─ ライブラリ（concat後、/app/assets/js/ディレクトリにdistされる）
       └─ sass
     node_modules
-      └─ パッケージ
     app
       └─ distディレクトリ
     package.json
@@ -63,7 +62,7 @@ gulp-initial は、gulpの使用を前提としたWEBアプリ・サイト向け
  * velocity.js
  * Underscore.js
 
-### 初期設定
+####初期設定
 設定したい任意のディレクトリに移動後、下記コマンドを実行してください。package.jsonに登録されているツール・ライブラリがダウンロードされます。
 
     $ sudo npm install
