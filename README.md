@@ -12,7 +12,7 @@ gulp-initial は、gulpの使用を前提としたWEBアプリ・サイト向け
               └─ _***.ejs（各ページの共通パーツ）
       └─ js
         └─ libs
-              └─ ライブラリ（concat後、/app/assets/js/ディレクトリにdistされる）
+              └─ ライブラリ（/app/assets/js/にconcat&ugilty後出力）
       └─ sass
     node_modules
     app
@@ -74,6 +74,12 @@ gulp-initial は、gulpの使用を前提としたWEBアプリ・サイト向け
 #### SASS/JS/EJSのコンパイル、およびHTML/CSS/JS/EJSの監視
 
     $ gulp
+
+#### library(js)の圧縮
+
+    $ gulp libsmin
+
+※libsminのsrc配列に、圧縮したいlibraryを記述する（jquery.js,velocity.jsは設定済み）
 
 #### critical cssの出力
 

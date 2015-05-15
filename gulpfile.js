@@ -55,14 +55,20 @@ gulp.task('compass', function () {
 		.pipe(browser.reload({stream:true}))
 });
 
-// js library (concat & uglify)
+// js library min (concat & uglify)
 gulp.task('libsmin', function() {
-	gulp.src('./src/js/libs/*.js')
+	gulp.src([
+			// 圧縮したいライブラリを指定
+			'./src/js/libs/jquery.js',
+			'./src/js/libs/velocity.js',
+			'./src/js/libs/velocity.ui.js'
+		])
 		.pipe(concat('libs.js'))
 		.pipe(uglify())
 		.pipe(gulp.dest('./app/assets/js/'))
 		.pipe(browser.reload({stream: true}));
 });
+
 
 // js
 gulp.task('js', function() {
@@ -111,7 +117,6 @@ gulp.task('imagemin', function () {
 gulp.task('cssmin', function () {
 	gulp.src('./app/assets/css/**/*')
 		.pipe(cssmin())
-		.pipe(rename({suffix: '.min'}))
 		.pipe(gulp.dest('./app/assets/css/'));
 });
 
@@ -138,15 +143,10 @@ gulp.task('watch', function() {
 	gulp.watch('./src/sass/**/*.scss', ['compass','reload'])
 	gulp.watch("./src/ejs/**/*.ejs",['ejs','reload']);
 	gulp.watch("./src/js/*.js",['js']);
-
-	var libsmin = gulp.watch('./src/js/libs/*.js', ['libsmin']);
-	libsmin.on('change', function(event) {
-    	console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
-	});
 });
 
 // default
 gulp.task("default",['browser','watch']);
 
 // minify
-gulp.task("min",['cssmin','imagemin','jsmin']);
+gulp.task("min",['cssmin','imagemin','jsmin','libsmin']);
