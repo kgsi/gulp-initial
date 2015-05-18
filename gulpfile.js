@@ -46,13 +46,11 @@ gulp.task('compass', function () {
 		.pipe(pleeease({
 			fallbacks: {
 				autoprefixer: ['last 4 versions'] //ベンダープレフィックス
-		    },
-		    optimizers: {
-				minifier: false //圧縮の有無
-		    }
+			},
+			minifier: false //圧縮の有無
 		}))
-		//.pipe(gulp.dest('./app/assets/temp'))
-		.pipe(browser.reload({stream:true}))
+		.pipe(gulp.dest('./app/assets/css/'))
+		.pipe(browser.reload({stream:true}));
 });
 
 // js library min (concat & uglify)
@@ -65,8 +63,7 @@ gulp.task('libsmin', function() {
 		])
 		.pipe(concat('libs.js'))
 		.pipe(uglify())
-		.pipe(gulp.dest('./app/assets/js/'))
-		.pipe(browser.reload({stream: true}));
+		.pipe(gulp.dest('./app/assets/js/'));
 });
 
 
@@ -74,7 +71,6 @@ gulp.task('libsmin', function() {
 gulp.task('js', function() {
 	gulp.src('./src/js/*.js')
 		.pipe(gulp.dest('./app/assets/js/'))
-		.pipe(browser.reload({stream: true}));
 });
 
 // ejs
@@ -124,8 +120,7 @@ gulp.task('cssmin', function () {
 gulp.task('jsmin', function() {
 	gulp.src('./src/js/*.js')
 		.pipe(uglify())
-		.pipe(gulp.dest('./app/assets/js/'))
-		.pipe(browser.reload({stream: true}));
+		.pipe(gulp.dest('./app/assets/js/'));
 });
 
 // styleGuide
@@ -142,7 +137,7 @@ gulp.task('watch', function() {
 	gulp.watch('./app/**/*.html',['reload']);
 	gulp.watch('./src/sass/**/*.scss', ['compass','reload'])
 	gulp.watch("./src/ejs/**/*.ejs",['ejs','reload']);
-	gulp.watch("./src/js/*.js",['js']);
+	gulp.watch("./src/js/*.js",['js','reload']);
 });
 
 // default
