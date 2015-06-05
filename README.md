@@ -28,10 +28,10 @@ gulp-initial は、gulpの使用を前提としたWEBアプリ・サイト向け
  * EJS
  * JS,CSS Minify & Concat
  * Autoprefix(pleeease)
- * Image Minify
+ * Image Minify(pngquant,jpegtran)
  * BrowserSync
  * Crtitical CSS
- * Style guide(Styledocco)
+ * StyleGuide(Styledocco)
 
 ## Usage
 このリポジトリはgulpによるビルドを前提に作成しています。
@@ -120,6 +120,12 @@ gulpfile.jsのbrowserSync項目を参照。proxyを有効にし、appディレ�
 * [Facebook](https://www.facebook.com/shinichi.kogiso)
 
 ## Log
+
+### 2015.06.05
+
+* gulpの書き直し
+* watchをgulp-watchに切り替え
+* ejsフォルダにejsテンプレートを設置
 
 ### 2015.05.12
 

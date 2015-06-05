@@ -2,16 +2,16 @@
 
 // clearfix
 @mixin clearfix{
-  zoom:1;
-  &:after{
-	content: ""; 
-	display: block; 
-	clear: both;
-	visibility: hidden; 
-	height: 0.1px; 
-	font-size: 0.1em; 
-	line-height: 0; 
-  }
+	zoom:1;
+	&:after{
+		content: ""; 
+		display: block; 
+		clear: both;
+		visibility: hidden; 
+		height: 0.1px; 
+		font-size: 0.1em; 
+		line-height: 0; 
+	}
 }
 
 // sprite map
@@ -31,21 +31,21 @@
 //=======================
 @mixin sprite-background($map, $name, $pixelRaito:1) {
 
-  // 画像の大きさ（必要があれば）
-  // width: round(image-width(sprite-file($map, $name)) / $pixelRaito);
-  // height: round(image-height(sprite-file($map, $name)) / $pixelRaito);
+	// 画像の大きさ（必要があれば）
+	// width: round(image-width(sprite-file($map, $name)) / $pixelRaito);
+	// height: round(image-height(sprite-file($map, $name)) / $pixelRaito);
 
-  // 背景パス、サイズ
-  background-image: $map;
-  background-repeat: none;
-  $spritePath: sprite-path($map);
-  $spriteWidth: round(image-width($spritePath) / $pixelRaito);
-  $spriteHeight: round(image-height($spritePath) / $pixelRaito);
-  @include background-size($spriteWidth, $spriteHeight);
+	// 背景パス、サイズ
+	background-image: $map;
+	background-repeat: none;
+	$spritePath: sprite-path($map);
+	$spriteWidth: round(image-width($spritePath) / $pixelRaito);
+	$spriteHeight: round(image-height($spritePath) / $pixelRaito);
+	@include background-size($spriteWidth, $spriteHeight);
 
-  // 背景ポジション
-  $pos: sprite-position($map, $name);
-  background-position: (nth($pos, 1) / $pixelRaito) (nth($pos, 2) / $pixelRaito);
+	// 背景ポジション
+	$pos: sprite-position($map, $name);
+	background-position: (nth($pos, 1) / $pixelRaito) (nth($pos, 2) / $pixelRaito);
 }
 
 // sprite css
@@ -60,61 +60,61 @@
 //=======================
 @mixin output-css-from-sprite($map, $pixelRaito:1, $placeHolder:false) {
 
-  // ディレクトリ名をCSSクラスのプレフィックスに付けます
-  $dirName: sprite-map-name($map);
+	// ディレクトリ名をCSSクラスのプレフィックスに付けます
+	$dirName: sprite-map-name($map);
 
-  // Spriteの中身を１件ずつCSS出力を行います
-  @each $name in sprite-names($map) {
+	// Spriteの中身を１件ずつCSS出力を行います
+	@each $name in sprite-names($map) {
 
 	// %xxとプレースホルダーを出力するか、CSSクラスを出力するかにより
 	// 処理を分けます。
 	@if $placeHolder {
-	  %#{$dirName}_#{$name} {
-		@include sprite-background($map, $name, $pixelRaito);
-	  }            
+		%#{$dirName}_#{$name} {
+			@include sprite-background($map, $name, $pixelRaito);
+		}            
 	} @else {
-	  .#{$dirName}_#{$name} {
-		@include sprite-background($map, $name, $pixelRaito);
-	  }            
+		.#{$dirName}_#{$name} {
+			@include sprite-background($map, $name, $pixelRaito);
+		}            
 	}
   }
 }
 
 // animation
 @mixin show-fade($time : 1s, $easing : $ease-out-cubic){
-  //visibility: hidden;
-  opacity : 0;
-  @include transition-property(opacity);
-  @include transition-duration($time);
-  @include transition-timing-function($easing);
-  &.show{
-	//visibility: visible;
-	opacity: 1;
-  }
-  &.hide{
+	//visibility: hidden;
 	opacity : 0;
-  }
-  @include transform-style(preserve-3d);
-  @include backface-visibility(hidden);
+	@include transition-property(opacity);
+	@include transition-duration($time);
+	@include transition-timing-function($easing);
+	&.show{
+		//visibility: visible;
+		opacity: 1;
+	}
+	&.hide{
+		opacity : 0;
+	}
+	@include transform-style(preserve-3d);
+	@include backface-visibility(hidden);
 }
 
 @mixin alpha-hover{
-  @include transition-property(opacity);
-  @include transform-style(preserve-3d);
-  @include backface-visibility(hidden);
-  @include transition-timing-function($ease-out-cubic);
-  @include transition-duration(0.35s);
+	@include transition-property(opacity);
+	@include transform-style(preserve-3d);
+	@include backface-visibility(hidden);
+	@include transition-timing-function($ease-out-cubic);
+	@include transition-duration(0.35s);
 }
 
 @mixin animation-common{
-  @include transition-timing-function($ease-out-quart);
-  @include transform-style(preserve-3d);
-  @include backface-visibility(hidden);
+	@include transition-timing-function($ease-out-quart);
+	@include transform-style(preserve-3d);
+	@include backface-visibility(hidden);
 }
 
 @mixin css3($property, $value) {
 	 @each $prefix in -webkit-, -moz-, -ms-, -o-, '' {
-		  #{$prefix}#{$property}: $value;
+			#{$prefix}#{$property}: $value;
 	 }
 }
 

@@ -1,26 +1,32 @@
-var gulp = require('gulp');
-var browser = require('browser-sync');
-var plumber = require('gulp-plumber');
-var notify = require('gulp-notify');
-var compass = require('gulp-compass');
-var rename = require('gulp-rename');
-var uglify = require('gulp-uglify');
-var concat = require('gulp-concat');
-var cssmin = require('gulp-cssmin');
-var pleeease = require('gulp-pleeease');
-var imagemin = require('gulp-imagemin');
-var pngquant = require('imagemin-pngquant');
-var ejs = require("gulp-ejs");
-var critical = require('critical');
+var gulp       = require('gulp');
+var browser    = require('browser-sync');
+var plumber    = require('gulp-plumber');
+var notify     = require('gulp-notify');
+var compass    = require('gulp-compass');
+var rename     = require('gulp-rename');
+var uglify     = require('gulp-uglify');
+var concat     = require('gulp-concat');
+var cssmin     = require('gulp-cssmin');
+var pleeease   = require('gulp-pleeease');
+var imagemin   = require('gulp-imagemin');
+var pngquant   = require('imagemin-pngquant');
+var jpegtran   = require('imagemin-jpegtran');
+var ejs        = require('gulp-ejs');
+var watch      = require('gulp-watch');
+var critical   = require('critical');
 var styleguide = require('gulp-styledocco');
 
+var srcDirectory = './src';
+var distDirectory = './app';
+
 // browserSync
-gulp.task("browser", function() {
+gulp.task('browser', function() {
 	browser({
 		// phpを使わない場合は下記を有効にする
 		server: {
-			baseDir: "./app/"
-		}
+			baseDir: distDirectory
+		},
+		reloadDelay: 500
 		// phpを使う場合は、下記を有効にして、appディレクトリを
 		// MAMPを使うなどしてサーバ化する
 		// proxy: 'localhost:8888'
@@ -34,14 +40,14 @@ gulp.task('reload', function () {
 
 // sass(compass)
 gulp.task('compass', function () {
-	return gulp.src('./src/sass/**/*.scss')
+	return gulp.src(srcDirectory + '/sass/**/*.scss')
 		.pipe(plumber({errorHandler: notify.onError('<%= error.message %>')}))
 		.pipe(compass({ 
 				config_file : './config.rb',
 				comments : false,
-				css : './app/assets/css/',
+				css : distDirectory+'/assets/css/',
 				sass: './src/sass/',
-				image: './app/assets/images/'
+				image: distDirectory+'/assets/images/'
 		}))
 		.pipe(pleeease({
 			fallbacks: {
@@ -49,43 +55,44 @@ gulp.task('compass', function () {
 			},
 			minifier: false //圧縮の有無
 		}))
-		.pipe(gulp.dest('./app/assets/css/'))
+		.pipe(gulp.dest(distDirectory+'/assets/css/'))
 		.pipe(browser.reload({stream:true}));
+
 });
 
-// js library min (concat & uglify)
+// js
+gulp.task('js', function() {
+	gulp.src(srcDirectory + '/js/*.js')
+		.pipe(gulp.dest(distDirectory + '/assets/js/'))
+		.pipe(browser.reload({stream: true}));
+});
+
+// ejs
+gulp.task('ejs', function() {
+	return gulp.src(
+			[srcDirectory + '/ejs/**/*.ejs','!' + srcDirectory + '/ejs/**/_*.ejs']
+		)
+		.pipe(plumber({errorHandler: notify.onError('<%= error.message %>')}))
+		.pipe(ejs())
+		.pipe(gulp.dest('./app/'))
+});
+
+// jsLibrary min (concat & uglify)
 gulp.task('libsmin', function() {
 	gulp.src([
-			// 圧縮したいライブラリを指定
 			'./src/js/libs/jquery.js',
 			'./src/js/libs/velocity.js',
 			'./src/js/libs/velocity.ui.js'
 		])
 		.pipe(concat('libs.js'))
 		.pipe(uglify())
-		.pipe(gulp.dest('./app/assets/js/'));
+		.pipe(gulp.dest(distDirectory + '/assets/js/'))
 });
 
-
-// js
-gulp.task('js', function() {
-	gulp.src('./src/js/*.js')
-		.pipe(gulp.dest('./app/assets/js/'))
-});
-
-// ejs
-gulp.task("ejs", function() {
-	gulp.src(
-		["./src/ejs/**/*.ejs",'!' + "./src/ejs/**/_*.ejs"]
-	)
-	.pipe(ejs())
-	.pipe(gulp.dest("./app"));
-});
-
-// critical-path css(inline)
+// criticalPath css(inline)
 gulp.task('critical', function () {
   critical.generateInline({
-		base: './app/',
+		base: distDirectory,
 		src: 'index.html',
 		//dest: 'assets/css/critical.css',
 		htmlTarget: 'index.html',
@@ -97,51 +104,69 @@ gulp.task('critical', function () {
 
 // image min
 gulp.task('imagemin', function () {
-	gulp.src('./app/assets/images/**/*')
+	gulp.src(distDirectory + '/assets/images/**/*')
 	.pipe(imagemin({
 		progressive: true,
 		svgoPlugins: [{removeViewBox: false}],
-		use: [pngquant({
-			quality: '60-80',
-			speed: 1
-		})]
+		use: [
+			pngquant({
+				quality: '60-80',
+				speed: 1
+			}),
+			jpegtran({progressive: true})
+		]
 	}))
-	.pipe(gulp.dest('./app/assets/images/'));
+	.pipe(gulp.dest(distDirectory + '/assets/images/'));
 });
 
 // css min
 gulp.task('cssmin', function () {
-	gulp.src('./app/assets/css/**/*')
+	gulp.src(distDirectory + '/assets/css/**/*')
 		.pipe(cssmin())
-		.pipe(gulp.dest('./app/assets/css/'));
+		.pipe(rename({suffix: '.min'}))
+		.pipe(gulp.dest(distDirectory + '/assets/css/'));
 });
 
 // js min
 gulp.task('jsmin', function() {
 	gulp.src('./src/js/*.js')
 		.pipe(uglify())
-		.pipe(gulp.dest('./app/assets/js/'));
+		.pipe(gulp.dest(distDirectory + '/assets/js/'));
 });
 
 // styleGuide
 gulp.task('styleguide', function () {
-	gulp.src('./app/assets/css/*.css')
+	gulp.src(distDirectory + '/assets/css/*.css')
 		.pipe(styleguide({
-			out: './app/styleguide',
+			out: distDirectory + '/styleguide',
 			name: 'styleguide'
 	}));
 });
 
 // watch
-gulp.task('watch', function() {
-	gulp.watch('./app/**/*.html',['reload']);
-	gulp.watch('./src/sass/**/*.scss', ['compass','reload'])
-	gulp.watch("./src/ejs/**/*.ejs",['ejs','reload']);
-	gulp.watch("./src/js/*.js",['js','reload']);
+gulp.task('watch', function(){
+	watch([srcDirectory + '/sass/**/*.scss'], function(event){
+		gulp.start(['compass']);
+	});
+
+	watch([srcDirectory + '/ejs/**/*.ejs'], function(event){
+		gulp.start(['ejs','reload']);
+	});
+
+	watch([srcDirectory + '/js/*.js'], function(event){
+		gulp.start(['js']);
+	});
+
+	watch([srcDirectory + '/js/libs/*.js'], function(event){
+		gulp.start(['libsmin']);
+	});
+
 });
 
 // default
-gulp.task("default",['browser','watch']);
+gulp.task('default',['browser','watch'], function(event){
+	gulp.start(['compass','ejs','js','libsmin']);
+});
 
 // minify
-gulp.task("min",['cssmin','imagemin','jsmin','libsmin']);
+gulp.task('min',['cssmin','imagemin','jsmin']);
