@@ -15,8 +15,8 @@ gulp-initial は、gulpの使用を前提としたWEBアプリ・サイト向け
               └─ ライブラリ（/app/assets/js/にconcat&ugilty後出力）
       └─ sass
     node_modules
-    app
-      └─ distディレクトリ
+    app（開発用ディレクトリ）
+    dest（公開ファイル書き出し用ディレクトリ）
     package.json
     config.rb
     gulpfile.js
@@ -32,27 +32,32 @@ gulp-initial は、gulpの使用を前提としたWEBアプリ・サイト向け
  * BrowserSync
  * Crtitical CSS
  * StyleGuide(Styledocco)
+ * ftp-upload(gulp-ftp)
 
 ## Usage
 このリポジトリはgulpによるビルドを前提に作成しています。
 以下はgulpの初期設定から実行方法までを説明します。
+※パッケージをインストールする際の"sudo"コマンドは省略しています。
 
-### npm,gem,sass,compassのアップデート
-※各ツールのインストールが済んでいる前提です。
+### npm,gem,sass,compassの設定・最新化（グローバル）
+Node.jsインストールが済んでいる前提です。また、CompassとSassを使うため、
+それぞれモジュールのインストールが必要です。
 
-    $ sudo npm update
-    $ sudo gem update --system 
-    $ sudo gem update sass
-    $ sudo gem update compass
+    $ npm update
+    $ gem update --system 
+    $ gem install sass
+    $ gem install compass
+    $ gem update sass
+    $ gem update compass
 
-### gulpのグローバルインストール
+### gulpのインストール（グローバル）
 
     $ npm install --global gulp
 
-### bowerの設定（Option）
+### bowerの設定（オプション）
 
-    $ sudo npm install -g bower
-    $ sudo npm update -g bower
+    $ npm install -g bower
+    $ npm update -g bower
     $ cd ** //リポジトリ設置ディレクトリに移動
     $ bower install
 
