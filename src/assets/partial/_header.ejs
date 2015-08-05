@@ -1,0 +1,46 @@
+<%
+var pagePath      = filename.split('/')[filename.split('/').length -2],
+	directoryPath = filename.substr(filename.indexOf('src')).replace('src','').replace('.ejs','.html').replace('index.html',''),
+	bodyClass;
+
+if(pagePath == 'src'){
+	pagePath = '';
+	bodyClass = 'top';
+}else{
+	bodyClass = pagePath + ' under';
+}
+-%>
+<!DOCTYPE HTML>
+<!--[if lte IE 8 ]><html class="ie8 ie8L ie9L" lang="ja" xmlns:og="http://ogp.me/ns#"><![endif]-->
+<!--[if IE 9 ]><html class="ie9 ie9L" lang="ja" xmlns:og="http://ogp.me/ns#"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html class="noIE" lang="ja" xmlns:og="http://ogp.me/ns#"><!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+<meta name="format-detection" content="telephone=no">
+<meta name="description" content="<%= pageID.description %>">
+<meta property="og:site_name" content="<%= siteName %>">
+<meta property="og:image" content="<%= domain %>/assets/images/common/ogimage.png">
+<meta property="og:title" content="<%= pageID.title %>">
+<meta property="og:url" content="<%= domain %><%= directoryPath %>">
+<meta property="og:type" content="<%= pageID.ogtype %>">
+<link rel="canonical" href="<%= domain %><%= directoryPath %>" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" href="">
+<title><%= pageID.title %></title>
+<link rel='stylesheet' href="/assets/css/style.css">
+<script src="/assets/js/libs.js"></script>
+<% if(typeof pageID.js != 'undefined' && pageID.js != '') {%>
+<% for(var i=0; i<pageID.js.length; i++) {-%>
+<script src="<%- pageID.js[i] %>"></script>
+<% } -%>
+<% } -%>
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+</head>
+<body class="<%= bodyClass %>">
+<header class="gheader">
+	
+</header>

@@ -1,0 +1,16 @@
+// base.scss
+
+html,body{
+	font-family: $font-family-sans-serif;
+	width: 100%;
+	height: 100%;
+	font-size: 62.5%;
+	text-size-adjust: 100%;
+	color: $color-primary;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+body{
+	line-height: $line-height-base;
+	font-size: $font-size-base;
+}
