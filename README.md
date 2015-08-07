@@ -6,15 +6,24 @@ gulp-initialは、gulpの使用を前提としたWEBアプリ・サイト向け�
 
 ##Directory
 
-    gulp
-      config.js // ディレクトリ・圧縮等の設定記述ファイル
-      └─ tasks // gulpタスクディレクトリ
-    src //ソースディレクトリ
-    dest //開発用・公開ファイル・ディレクトリ
-    node_modules
+    dest           //開発・公開用ファイルの出力ディレクトリ
     package.json
     gulpfile.js
     bower.json
+    gulp           
+     └ tasks       //gulpタスク
+	  config.js    //ディレクトリ・圧縮等の設定ファイル
+    src            //ソースファイルディレクトリ
+     └ assets
+        └ sass     //sass(scss)格納
+        └ partial  //header,footerなどの共通パーツ格納
+        └ js
+           └ libs  //ライブラリファイル格納
+        └ images
+
+ * watch, destをすると、srcフォルダ構造を維持しつつ、destへ出力されます。
+ * partial,sassディレクトリはdestディレクトリにコピーされません。
+ * libsの圧縮設定はconfig.jsのlibs項目で行います。
 
 ## Spec
 ### Main
@@ -42,7 +51,7 @@ gulp-initialは、gulpの使用を前提としたWEBアプリ・サイト向け�
 
 ### Command
 
-#### SASS,JS,EJSのコンパイル、およびHTML/CSS/JS/EJSの監視
+#### watch(SASS,JS,EJSのコンパイル、およびHTML/CSS/JS/EJSの監視)
 
     $ gulp
 
@@ -61,7 +70,9 @@ gulp-initialは、gulpの使用を前提としたWEBアプリ・サイト向け�
 ### Option
 
 #### PHPを使う場合
-gulpfile.jsのbrowserSync項目を参照。proxyを有効にし、appディレクトリをMAMPなどを使って有効化します。MAMPとBrowserSyncの紐付けが行われます。
+gulpfile.jsのbrowserSync項目を参照。  
+proxyを有効にし、appディレクトリをMAMPなどを使って有効化します。  
+MAMPとBrowserSyncの紐付けが行われます。
 
 ## Author
 
@@ -77,5 +88,4 @@ gulpfile.jsのbrowserSync項目を参照。proxyを有効にし、appディレ�
 リポジトリ再アップと整理
 
 ####2015.06.25
-
 リポジトリ化
