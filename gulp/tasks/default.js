@@ -3,17 +3,20 @@ var gulp   = require('gulp'),
 	watch  = require('gulp-watch'),
 	config = require('../config');
 
-
 // default
 gulp.task('default', ['browser','watch'], function() {
-	gulp.start(['compass','ejs','copy','libs']);
-	//gulp.start(['compass','ejs','webpack','copy','libs']);
+	gulp.start(['sass','ejs','copy','libs', 'babel']);
 })
 
 // watch
 gulp.task('watch', function(){
+
 	watch([config.css.src], function(event){
-		gulp.start(['compass']);
+		gulp.start(['sass']);
+	});
+
+	watch([config.js.src], function(event){
+		gulp.start(['babel']);
 	});
 
 	watch([config.ejs.watch], function(event){
@@ -27,9 +30,5 @@ gulp.task('watch', function(){
 	watch([config.libs.watch], function(event){
 		gulp.start(['libs']);
 	});
-
-	// watch([config.js.src], function(event){
-	// 	gulp.start(['webpack'])
-	// });
 
 });

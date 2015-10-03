@@ -3,11 +3,10 @@ var pagePath      = filename.split('/')[filename.split('/').length -2],
 	directoryPath = filename.substr(filename.indexOf('src')).replace('src','').replace('.ejs','.html').replace('index.html',''),
 	bodyClass;
 
-if(pagePath == 'src'){
-	pagePath = '';
-	bodyClass = 'top';
+if(pageID == 'top'){
+	bodyClass = pageID;
 }else{
-	bodyClass = pagePath + ' under';
+	bodyClass = pageID + ' under';
 }
 -%>
 <!DOCTYPE HTML>
@@ -28,14 +27,14 @@ if(pagePath == 'src'){
 <link rel="canonical" href="<%= domain %><%= directoryPath %>" />
 <link rel="shortcut icon" href="/favicon.ico" />
 <link rel="apple-touch-icon" href="">
-<title><%= pageID.title %></title>
 <link rel='stylesheet' href="/assets/css/style.css">
 <script src="/assets/js/libs.js"></script>
-<% if(typeof pageID.js != 'undefined' && pageID.js != '') {%>
+<% if(typeof pageID.js != 'undefined' && pageID.js != '') {-%>
 <% for(var i=0; i<pageID.js.length; i++) {-%>
 <script src="<%- pageID.js[i] %>"></script>
 <% } -%>
 <% } -%>
+<title><%= pageID.title %></title>
 <!--[if lt IE 9]>
 <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
