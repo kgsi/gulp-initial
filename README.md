@@ -27,7 +27,7 @@ gulp-initialは、gulpの使用を前提としたWEBアプリ・サイト向け�
 
 ## Spec
 ### Main
- * SASS(Compass)
+ * SASS
  * EJS
  * JS,CSS Minify & Concat
  * Autoprefix(pleeease)
@@ -37,7 +37,6 @@ gulp-initialは、gulpの使用を前提としたWEBアプリ・サイト向け�
 ### Option
  * Crtitical CSS
  * StyleGuide(Styledocco)
- * ftp-upload(gulp-ftp)
 
 ###bower登録済みライブラリ
  * jQuery
@@ -83,6 +82,10 @@ MAMPとBrowserSyncの紐付けが行われます。
 * [Facebook](https://www.facebook.com/shinichi.kogiso)
 
 ## Log
+
+####2015.10.03
+* ES6(babel)コンパイル機能追加
+* CSSのコンパイルをCompassからgulp-sassへ変更
 
 ####2015.08.06
 リポジトリ再アップと整理
