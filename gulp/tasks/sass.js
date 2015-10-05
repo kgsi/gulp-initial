@@ -7,7 +7,6 @@ var gulp       = require('gulp'),
 	sourcemaps = require('gulp-sourcemaps'),
 	config     = require('../config').css;
 
-// sass
 gulp.task('sass', function () {
 	 gulp.src(config.src)
 		.pipe(plumber({errorHandler: notify.onError('<%= error.message %>')}))
@@ -16,7 +15,7 @@ gulp.task('sass', function () {
 		.pipe(pleeease({
 			autoprefixer: ['last 4 versions'],
 			sourcemaps: true,
-			minifier: false,
+			minifier: config.uglify,
 			sass: true
 		}))
 		.pipe(sourcemaps.write())

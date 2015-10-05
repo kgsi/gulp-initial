@@ -3,8 +3,6 @@ var fs       = require('fs'),
 	critical = require('critical'),
 	config   = require('../config');
 
-
-// criticalPath css(inline)
 gulp.task('critical', function () {
 	critical.generateInline({
 		base: config.dest,

@@ -2,7 +2,6 @@ var gulp    = require('gulp'),
 	browser = require('browser-sync'),
 	config  = require('../config');
 
-
 gulp.task('browser', function() {
 	browser({
 		// phpを使わない場合は下記を有効にする

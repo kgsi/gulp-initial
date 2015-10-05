@@ -6,7 +6,6 @@ var fs      = require('fs'),
 	ejs     = require("gulp-ejs"),
 	config  = require('../config').ejs;
 
-
 gulp.task('ejs', function() {
 	var json = JSON.parse(fs.readFileSync(config.json));
 

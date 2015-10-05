@@ -30,17 +30,17 @@ module.exports = {
 
 	libs: {
 		src: [
-			src + '/js/libs/jquery.js',
-			src + '/js/libs/velocity.js',
-			src + '/js/libs/velocity.ui.js'
+			src + '/js/vendor/jquery.js',
+			src + '/js/vendor/velocity.js',
+			src + '/js/vendor/velocity.ui.js'
 		],
 		rename: 'libs.js',
-		watch: src + '/assets/js/vendor/*.js',
-		dest: dest + '/assets/js'
+		watch:  src + '/assets/js/vendor/*.js',
+		dest:   dest + '/assets/js'
 	},
 
 	image: {
-		src: src + '/assets/images/**/*',
+		src:  src + '/assets/images/**/*',
 		dest: dest + '/assets/images'
 	},
 

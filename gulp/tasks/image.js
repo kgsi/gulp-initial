@@ -4,8 +4,6 @@ var gulp          = require('gulp'),
 	jpegtran      = require('imagemin-jpegtran'),
 	config        = require('../config').image;
 
-
-// image min
 gulp.task('image', function() {
 	return gulp.src(config.src)
 		.pipe(imagemin({
