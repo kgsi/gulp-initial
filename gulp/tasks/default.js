@@ -23,10 +23,6 @@ gulp.task('watch', function(){
 		gulp.start(['ejs']);
 	});
 
-	watch(config.copy.watch, function(event){
-		gulp.start(['copy'])
-	});
-
 	watch([config.libs.watch], function(event){
 		gulp.start(['libs']);
 	});
