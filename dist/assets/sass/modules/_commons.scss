@@ -1,0 +1,15 @@
+// commons.scss
+
+.hidden{
+	display: none !important;
+}
+
+.smt{
+	display: none;
+}
+
+@include mediaquery-smt {
+	.smt{ 
+		display: block;
+	}
+}

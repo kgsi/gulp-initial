@@ -1,0 +1,172 @@
+// mixin.scss
+
+// clearfix
+@mixin clearfix{
+	zoom:1;
+	&:after{
+		content: ""; 
+		display: block; 
+		clear: both;
+		visibility: hidden; 
+		height: 0.1px; 
+		font-size: 0.1em;
+		line-height: 0; 
+	}
+}
+
+// sprite map
+//=======================
+//  SpriteMapと画像Nameを受け取り、CSSを出力するMixin
+// 
+// @param map(require)             ：sprite-map変数
+// @param name(require)            ：spriteを構成する画像名
+// @param pixelRaito(optional)     ：Retina対応する場合には、2を指定する
+// 
+// ※注意点
+// pixelRaitoに1以外を指定する場合には、Spriteを生成する為の画像の高さと横幅が
+// picelRaitoで割り切れるようにする必要があります。
+// 例えば、Retina対応用の画像の場合は、Spriteを生成する為の画像の高さとよ横幅は
+// 偶数にする必要があります。
+// 
+//=======================
+@mixin sprite-background($map, $name, $pixelRaito:1) {
+
+	// 画像の大きさ（必要があれば）
+	// width: round(image-width(sprite-file($map, $name)) / $pixelRaito);
+	// height: round(image-height(sprite-file($map, $name)) / $pixelRaito);
+
+	// 背景パス、サイズ
+	background-image: $map;
+	background-repeat: none;
+	$spritePath: sprite-path($map);
+	$spriteWidth: round(image-width($spritePath) / $pixelRaito);
+	$spriteHeight: round(image-height($spritePath) / $pixelRaito);
+	@include background-size($spriteWidth, $spriteHeight);
+
+	// 背景ポジション
+	$pos: sprite-position($map, $name);
+	background-position: (nth($pos, 1) / $pixelRaito) (nth($pos, 2) / $pixelRaito);
+}
+
+// sprite css
+//=======================
+// Retina用画像を用いたスプライトとCSSクラスの生成するMixin。
+// このMixinを使うことで、指定したmapに含まれる画像に対するCSSを全て出力することが出来ます。
+// 
+// @param map(require)           : sprite-map
+// @param pixelRaito(optional)   : ピクセルRaito（Retina用の場合は、2を指定する）
+// @param placeHolder(optional)  : CSSクラスではなく、%セレクタのプレースホルダーを出力する場合はtrue
+// 
+//=======================
+@mixin output-css-from-sprite($map, $pixelRaito:1, $placeHolder:false) {
+
+	// ディレクトリ名をCSSクラスのプレフィックスに付けます
+	$dirName: sprite-map-name($map);
+
+	// Spriteの中身を１件ずつCSS出力を行います
+	@each $name in sprite-names($map) {
+
+	// %xxとプレースホルダーを出力するか、CSSクラスを出力するかにより
+	// 処理を分けます。
+	@if $placeHolder {
+		%#{$dirName}_#{$name} {
+			@include sprite-background($map, $name, $pixelRaito);
+		}            
+	} @else {
+		.#{$dirName}_#{$name} {
+			@include sprite-background($map, $name, $pixelRaito);
+		}            
+	}
+  }
+}
+
+// animation
+@mixin show-fade($time : 1s, $easing : $ease-out-cubic){
+	//visibility: hidden;
+	opacity : 0;
+	@include transition-property(opacity);
+	@include transition-duration($time);
+	@include transition-timing-function($easing);
+	&.show{
+		//visibility: visible;
+		opacity: 1;
+	}
+	&.hide{
+		opacity : 0;
+	}
+	@include transform-style(preserve-3d);
+	@include backface-visibility(hidden);
+}
+
+@mixin alpha-hover{
+	@include transition-property(opacity);
+	@include transform-style(preserve-3d);
+	@include backface-visibility(hidden);
+	@include transition-timing-function($ease-out-cubic);
+	@include transition-duration(0.35s);
+}
+
+@mixin animation-common{
+	@include transition-timing-function($ease-out-quart);
+	@include transform-style(preserve-3d);
+	@include backface-visibility(hidden);
+}
+
+@mixin css3($property, $value) {
+	 @each $prefix in -webkit-, -moz-, -ms-, -o-, '' {
+			#{$prefix}#{$property}: $value;
+	 }
+}
+
+// animation keyframes
+// @include keyframes(ANIMATIONNAME) {
+//   0% { ATTRIBUTE: VALUE; ATTRIBUTE: VALUE; }
+//   50% { ATTRIBUTE: VALUE; ATTRIBUTE: VALUE; }
+//   100% { ATTRIBUTE: VALUE; ATTRIBUTE: VALUE; }
+// }
+@mixin keyframes($animationName) {
+	@-webkit-keyframes #{$animationName} {
+		@content;
+	}
+	@-moz-keyframes #{$animationName} {
+		@content;
+	}
+	@-o-keyframes #{$animationName} {
+		@content;
+	}
+	@keyframes #{$animationName} {
+		@content;
+	}
+}
+
+// media queries
+@mixin mediaquery-pc {
+  @media only screen and (min-width: $width-pc) {
+	@content;
+  }
+}
+
+@mixin mediaquery-smt {
+	@media only screen and (max-width: $width-smt) {
+		@content;
+	}
+}
+
+// ie
+@mixin only-ie8bellow(){
+	html.ie8L &{
+		@content;
+	}
+}
+
+@mixin only-ie9bellow(){
+	html.ie9L &{
+		@content;
+	}
+}
+
+@mixin only-noie(){
+	html.noIE &{
+		@content;
+	}
+}

@@ -5,3 +5,5 @@ const obj = (() => {
     }
   };
 })();
+
+obj.method();

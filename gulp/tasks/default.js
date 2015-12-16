@@ -5,7 +5,7 @@ var gulp   = require('gulp'),
 
 // default
 gulp.task('default', ['browser','watch'], function() {
-	gulp.start(['sass','ejs','copy','libs', 'babel']);
+	gulp.start(['sass', 'ejs', 'libs', 'babel']);
 })
 
 // watch

@@ -1,6 +1,6 @@
 var path               = require('path'),
 	src	               = './src',
-	dest               = './dest',
+	dest               = './dist',
 	relativeSrcPath    = path.relative('.', src);
 
 module.exports = {
@@ -30,9 +30,9 @@ module.exports = {
 
 	libs: {
 		src: [
-			src + '/js/vendor/jquery.js',
-			src + '/js/vendor/velocity.js',
-			src + '/js/vendor/velocity.ui.js'
+			src + '/assets/js/vendor/jquery.js',
+			src + '/assets/js/vendor/velocity.js'
+			// src + '/js/vendor/velocity.ui.js'
 		],
 		rename: 'libs.js',
 		watch:  src + '/assets/js/vendor/*.js',
@@ -40,22 +40,22 @@ module.exports = {
 	},
 
 	image: {
-		src:  src + '/assets/images/**/*',
+		src:  dest + '/assets/images/**/*',
 		dest: dest + '/assets/images'
 	},
 
-	copy: {
-		src: [
-			src + '/**/*', 
-			'!' + src + '/**/*.ejs',
-			'!' + src + '/assets/partial',
-			'!' + src + '/data.json',
-			'!' + src + '/assets/js/*.js'
-		],
-		watch: [
-			src + '/**/*', 
-		],
-		base: src,
-		dest: dest
-	}
+	// copy: {
+	// 	src: [
+	// 		src + '/**/*',
+	// 		'!' + src + '/**/*.ejs',
+	// 		'!' + src + '/assets/partial',
+	// 		'!' + src + '/data.json',
+	// 		'!' + src + '/assets/js/*.js'
+	// 	],
+	// 	watch: [
+	// 		src + '/**/*',
+	// 	],
+	// 	base: src,
+	// 	dest: dest
+	// }
 };
