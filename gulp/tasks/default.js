@@ -5,26 +5,18 @@ var gulp   = require('gulp'),
 
 // default
 gulp.task('default', ['browser','watch'], function() {
-	gulp.start(['sass', 'ejs', 'libs', 'babel']);
+	gulp.start(['sass', 'libs', 'babel']);
 })
 
 // watch
 gulp.task('watch', function(){
 
-	watch([config.css.src], function(event){
+	watch(config.css.src, function(event){
 		gulp.start(['sass']);
 	});
 
-	watch([config.js.src], function(event){
+	watch(config.js.src, function(event){
 		gulp.start(['babel']);
-	});
-
-	watch([config.ejs.watch], function(event){
-		gulp.start(['ejs']);
-	});
-
-	watch([config.libs.watch], function(event){
-		gulp.start(['libs']);
 	});
 
 });

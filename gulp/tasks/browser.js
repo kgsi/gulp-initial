@@ -5,12 +5,12 @@ var gulp    = require('gulp'),
 gulp.task('browser', function() {
 	browser({
 		// phpを使わない場合は下記を有効にする
-		server: {
-			baseDir: config.dest
-		},
-		reloadDelay: 500
+		// server: {
+		// 	baseDir: config.dest
+		// },
+		reloadDelay: 500,
 		// phpを使う場合は、下記を有効にして、appディレクトリを
 		// MAMPを使うなどしてサーバ化する
-		// proxy: 'localhost:8888'
+		proxy: 'localhost:8888'
 	});
 });

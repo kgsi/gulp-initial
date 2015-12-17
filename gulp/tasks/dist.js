@@ -4,6 +4,6 @@ var gulp          = require('gulp'),
 	runSequence   = require('run-sequence'),
 	config        = require('../config');
 
-gulp.task('dest',function(callback){
-	runSequence('clean', ['sass','ejs'], 'copy', ['image', 'libs']);
+gulp.task('dist',function(callback){
+	runSequence('clean', 'sass', 'copy', 'image', 'libs');
 });

@@ -1,61 +1,33 @@
 var path               = require('path'),
-	src	               = './src',
-	dest               = './dist',
-	relativeSrcPath    = path.relative('.', src);
+	app               = 'app',
+    dist               = 'dist';
+	//relativeSrcPath    = path.relative('.', src);
 
 module.exports = {
-	src: src,
-	dest: dest,
-
-	ejs: {
-		src:   [src + '/**/*.ejs', '!' + src + '/**/_*.ejs'],
-		watch: src + '/**/*.ejs',
-		json:  src + '/data.json',
-		dest:  dest
-	},
 
 	css: {
-		src: src + '/assets/sass/**/*.scss',
-		dest: dest + '/assets/css',
-		sass: src + '/assets/sass',
-		images: src + '/assets/images',
+		src:    app + '/assets/sass/**/*.scss',
+		dest:   app + '/assets/css',
+		sass:   app + '/assets/sass',
+		images: app + '/assets/images',
 		uglify: true
 	},
 
 	js: {
-		src: src + '/assets/js/*.js',
-		dest: dest + '/assets/js',
-		uglify: true
+    	src:    app + '/assets/js/*.js',
+		dest:   app + '/assets/js',
+		uglify: false
 	},
 
-	libs: {
-		src: [
-			src + '/assets/js/vendor/jquery.js',
-			src + '/assets/js/vendor/velocity.js'
-			// src + '/js/vendor/velocity.ui.js'
-		],
-		rename: 'libs.js',
-		watch:  src + '/assets/js/vendor/*.js',
-		dest:   dest + '/assets/js'
+    libs: {
+		src:    '*',
+		dest:   app + '/assets/js/vendor/',
+        rename: 'libs.js',
+		uglify: false
 	},
 
 	image: {
-		src:  dest + '/assets/images/**/*',
-		dest: dest + '/assets/images'
-	},
-
-	// copy: {
-	// 	src: [
-	// 		src + '/**/*',
-	// 		'!' + src + '/**/*.ejs',
-	// 		'!' + src + '/assets/partial',
-	// 		'!' + src + '/data.json',
-	// 		'!' + src + '/assets/js/*.js'
-	// 	],
-	// 	watch: [
-	// 		src + '/**/*',
-	// 	],
-	// 	base: src,
-	// 	dest: dest
-	// }
+		src:  dist + '/assets/images/**/*',
+		dest: dist + '/assets/images'
+	}
 };

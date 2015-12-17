@@ -9,10 +9,6 @@ gulp.task('babel', function() {
 	return gulp.src(config.src)
 		.pipe(sourcemaps.init())
 		.pipe(babel())
-		.pipe(sourcemaps.write())
+		.pipe(sourcemaps.write('./',{includeContent: false, sourceRoot: config.src}))
 		.pipe(gulp.dest(config.dest))
-		.pipe(browser.reload({
-			stream: true,
-			once: true
-		}));
 });
