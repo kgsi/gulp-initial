@@ -11,8 +11,7 @@ gulp.task('babel', function() {
 		.pipe(babel())
 		.pipe(sourcemaps.write())
 		.pipe(gulp.dest(config.dest))
-		.pipe(browser.reload({
-			stream: true,
-			once: true
+        .pipe(browser.reload({
+			stream: true
 		}));
 });
